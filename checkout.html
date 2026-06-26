@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout HL APPLE</title>
+
+<style>
+body{font-family:Arial;margin:0;background:#f5f5f5}
+header{background:#000;color:#fff;padding:20px;text-align:center;font-size:20px}
+
+.box{background:#fff;margin:10px;padding:15px;border-radius:10px}
+
+button{
+background:#000;color:#fff;border:none;
+padding:10px;width:100%;border-radius:6px
+}
+</style>
+</head>
+
+<body>
+
+<header>💳 Finalizar Compra</header>
+
+<div class="box">
+<h3>Resumo do pedido</h3>
+<p id="itens"></p>
+<p><b>Total:</b> R$ <span id="total"></span></p>
+</div>
+
+<div class="box">
+<h3>📍 Endereço</h3>
+<input id="cep" placeholder="CEP"><br><br>
+<input placeholder="Rua"><br><br>
+<input placeholder="Número">
+</div>
+
+<div class="box">
+<h3>💰 Pagamento PIX</h3>
+<p>Chave PIX será mostrada no final</p>
+</div>
+
+<div class="box">
+<button onclick="finalizar()">Confirmar e gerar pedido</button>
+</div>
+
+<script>
+
+let itens = JSON.parse(localStorage.getItem("itens")) || [];
+let total = localStorage.getItem("total") || 0;
+
+document.getElementById("itens").innerText = itens.join(", ");
+document.getElementById("total").innerText = total;
+
+function finalizar(){
+
+let pix = "11946796959";
+let whatsapp = "5511960934864";
+
+let msg =
+"🛒 PEDIDO HL APPLE\n\n" +
+"Produtos: " + itens.join(", ") +
+"\nTotal: R$ " + total +
+"\n\n💰 PIX: " + pix +
+"\nEnvie comprovante após pagamento.";
+
+let url = "https://wa.me/" + whatsapp + "?text=" + encodeURIComponent(msg);
+
+window.open(url);
+}
+
+</script>
+
+</body>
+</html>
