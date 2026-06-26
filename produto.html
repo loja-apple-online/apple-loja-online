@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Produto HL APPLE</title>
+
+<style>
+body{font-family:Arial;margin:0;background:#f5f5f5}
+.box{background:#fff;margin:10px;padding:15px;border-radius:10px}
+img{width:100%;border-radius:10px}
+
+button{background:#000;color:#fff;border:none;padding:10px;width:100%;border-radius:6px}
+</style>
+</head>
+
+<body>
+
+<div class="box" id="content"></div>
+
+<script>
+
+let data = {
+iphone13:{
+name:"iPhone 13",
+price:2800,
+img:"https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-13-01.jpg",
+desc:"Chip A15 Bionic, câmera dupla, gravação 4K, excelente bateria."
+},
+iphone14:{
+name:"iPhone 14",
+price:3200,
+img:"https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-14-1.jpg",
+desc:"Detecção de acidentes, câmera melhorada, alto desempenho."
+},
+iphone15:{
+name:"iPhone 15",
+price:4200,
+img:"https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-15-1.jpg",
+desc:"USB-C, câmera 48MP, Dynamic Island."
+},
+iphone16:{
+name:"iPhone 16 Pro",
+price:5800,
+img:"https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-16-pro-1.jpg",
+desc:"Chip A18 Pro, câmera profissional, tela ProMotion."
+},
+iphone17:{
+name:"iPhone 17 Pro Max",
+price:7500,
+img:"https://fdn2.gsmarena.com/vv/pics/apple/apple-iphone-17-pro-max-1.jpg",
+desc:"Última geração Apple, máxima performance e câmera ultra avançada."
+}
+}
+
+let p = localStorage.getItem("produto");
+let item = data[p];
+
+document.getElementById("content").innerHTML = `
+<img src="${item.img}">
+<h2>${item.name}</h2>
+<p>${item.desc}</p>
+<h3>R$ ${item.price}</h3>
+<button onclick="add()">Adicionar ao carrinho</button>
+`;
+
+function add(){
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+cart.push({name:item.name,price:item.price});
+localStorage.setItem("cart", JSON.stringify(cart));
+window.location.href="checkout.html";
+}
+
+</script>
+
+</body>
+</html>
