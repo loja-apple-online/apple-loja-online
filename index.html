@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apple Store</title>
+
+<style>
+html{
+scroll-behavior:smooth;
+}
+
+body{
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Segoe UI,Roboto;
+background:#fff;
+color:#1d1d1f;
+}
+
+/* NAVBAR */
+nav{
+position:fixed;
+top:0;
+width:100%;
+background:rgba(255,255,255,0.8);
+backdrop-filter: blur(20px);
+display:flex;
+justify-content:center;
+gap:25px;
+padding:12px;
+font-size:13px;
+border-bottom:1px solid #eee;
+z-index:10;
+}
+
+nav a{
+text-decoration:none;
+color:#1d1d1f;
+opacity:0.8;
+}
+
+nav a:hover{
+opacity:1;
+}
+
+/* HERO */
+.hero{
+margin-top:60px;
+text-align:center;
+padding:80px 20px;
+background:linear-gradient(to bottom,#f5f5f7,#fff);
+}
+
+.hero h1{
+font-size:48px;
+margin:0;
+font-weight:700;
+}
+
+.hero p{
+font-size:20px;
+color:#6e6e73;
+}
+
+/* SECTIONS */
+section{
+padding:60px 20px;
+max-width:1100px;
+margin:auto;
+}
+
+/* GRID */
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+}
+
+.card{
+border-radius:20px;
+border:1px solid #eee;
+padding:15px;
+text-align:center;
+cursor:pointer;
+transition:0.3s;
+background:#fff;
+opacity:0;
+transform:translateY(30px);
+animation:fadeUp 0.8s forwards;
+}
+
+.card:hover{
+transform:scale(1.03);
+box-shadow:0 25px 40px rgba(0,0,0,0.08);
+}
+
+.card img{
+width:100%;
+height:150px;
+object-fit:contain;
+}
+
+.price{
+color:#0071e3;
+font-weight:600;
+}
+
+/* ANIMATION */
+@keyframes fadeUp{
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+/* PRODUCT MODAL */
+#productPage{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#fff;
+display:none;
+flex-direction:column;
+padding:30px;
+z-index:100;
+}
+
+button{
+padding:12px;
+margin-top:10px;
+border:none;
+border-radius:12px;
+font-weight:600;
+cursor:pointer;
+}
+
+.blue{background:#0071e3;color:#fff;}
+.green{background:#34c759;color:#000;}
+.gray{background:#f5f5f7;color:#000;}
+
+.close{
+position:absolute;
+top:15px;
+right:15px;
+font-size:18px;
+cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+<a href="#home">Store</a>
+<a href="#iphones">iPhone</a>
+<a href="#about">Sobre</a>
+</nav>
+
+<div class="hero" id="home">
+<h1>iPhone Store</h1>
+<p>O futuro em suas mãos.</p>
+</div>
+
+<!-- IPHONES -->
+<section id="iphones">
+<h2>iPhones</h2>
+
+<div class="grid">
+
+<div class="card" onclick="openProduct('iPhone 13',2999)">
+<img src="https://upload.wikimedia.org/wikipedia/commons/8/8f/IPhone_13_vector.svg">
+<h3>iPhone 13</h3>
+<p class="price">R$ 2.999</p>
+</div>
+
+<div class="card" onclick="openProduct('iPhone 14',3499)">
+<img src="https://upload.wikimedia.org/wikipedia/commons/1/14/IPhone_14_vector.svg">
+<h3>iPhone 14</h3>
+<p class="price">R$ 3.499</p>
+</div>
+
+<div class="card" onclick="openProduct('iPhone 15',4299)">
+<img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/IPhone_15_vector.svg">
+<h3>iPhone 15</h3>
+<p class="price">R$ 4.299</p>
+</div>
+
+</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+<h2>Sobre a loja</h2>
+<p style="color:#6e6e73;max-width:700px">
+Uma experiência de compra premium inspirada na Apple Store.
+Interface limpa, rápida e otimizada para todos os dispositivos.
+</p>
+</section>
+
+<!-- PRODUCT PAGE -->
+<div id="productPage">
+<div class="close" onclick="closeProduct()">✕</div>
+
+<h1 id="pName"></h1>
+<p id="pPrice"></p>
+
+<button class="blue" onclick="buy()">Comprar no WhatsApp</button>
+<button class="green" onclick="copyPix()">Copiar Pix</button>
+<button class="gray" onclick="closeProduct()">Voltar</button>
+</div>
+
+<script>
+
+let currentName=""
+let currentPrice=0
+
+let whatsapp="5511999999999"
+let pix="seu-pix-aqui@email.com"
+
+function openProduct(name,price){
+currentName=name
+currentPrice=price
+
+document.getElementById("productPage").style.display="flex"
+document.getElementById("pName").innerText=name
+document.getElementById("pPrice").innerText="R$ "+price
+}
+
+function closeProduct(){
+document.getElementById("productPage").style.display="none"
+}
+
+function buy(){
+let msg=`Olá! Quero comprar o ${currentName} por R$ ${currentPrice}`
+let url=`https://wa.me/${whatsapp}?text=${encodeURIComponent(msg)}`
+window.open(url,"_blank")
+}
+
+function copyPix(){
+navigator.clipboard.writeText(pix)
+alert("Pix copiado!")
+}
+
+</script>
+
+</body>
+</html>
