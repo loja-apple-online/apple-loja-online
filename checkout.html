@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout HL APPLE</title>
+
+<style>
+body{font-family:Arial;margin:0;background:#f5f5f5}
+header{background:#000;color:#fff;padding:20px;text-align:center}
+
+.box{background:#fff;margin:10px;padding:15px;border-radius:10px}
+
+button{background:#000;color:#fff;border:none;padding:10px;width:100%;border-radius:6px}
+input{width:100%;padding:8px;margin-top:5px}
+</style>
+</head>
+
+<body>
+
+<header>💳 Finalizar Compra</header>
+
+<div class="box">
+<h3>Resumo</h3>
+<p id="resumo"></p>
+<p>Total: R$ <span id="total"></span></p>
+</div>
+
+<div class="box">
+<h3>📍 CEP</h3>
+<input id="cep" placeholder="Digite seu CEP" oninput="calcFrete()">
+<p>Frete: R$ <span id="frete">0</span></p>
+</div>
+
+<div class="box">
+<button onclick="finish()">Confirmar pedido</button>
+</div>
+
+<script>
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let total = cart.reduce((s,i)=>s+i.price,0);
+let frete = 0;
+
+document.getElementById("resumo").innerText =
+cart.map(i=>i.name).join(", ");
+
+document.getElementById("total").innerText = total;
+
+function calcFrete(){
+let cep = document.getElementById("cep").value;
+frete = cep.length >= 8 ? 30 : 0;
+document.getElementById("frete").innerText = frete;
+}
+
+function finish(){
+
+let pix = "11946796959";
+let whatsapp = "5511960934864";
+
+let msg =
+"🛒 HL APPLE PEDIDO\n\n" +
+"Produtos: " + cart.map(i=>i.name).join(", ") +
+"\nTotal: R$ " + total +
+"\nFrete: R$ " + frete +
+"\n\n💰 PIX: " + pix +
+"\nEnviar comprovante após pagamento.";
+
+let url = "https://wa.me/" + whatsapp + "?text=" + encodeURIComponent(msg);
+
+window.open(url);
+
+// salvar pedido no admin
+localStorage.setItem("lastOrder", msg);
+}
+
+</script>
+
+</body>
+</html>
