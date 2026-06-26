@@ -1,0 +1,50 @@
+body {
+font-family: Arial;
+margin: 0;
+background: #fff;
+color: #111;
+}
+
+header {
+text-align: center;
+padding: 20px;
+}
+
+.top-bar {
+background: black;
+color: white;
+padding: 8px;
+font-size: 12px;
+}
+
+nav {
+display: flex;
+justify-content: space-around;
+padding: 10px;
+border-bottom: 1px solid #ddd;
+}
+
+nav a {
+text-decoration: none;
+color: black;
+}
+
+.cart {
+font-weight: bold;
+}
+
+.produto {
+border: 1px solid #eee;
+margin: 10px;
+padding: 10px;
+border-radius: 10px;
+}
+
+button {
+background: black;
+color: white;
+padding: 10px;
+border: none;
+width: 100%;
+margin-top: 10px;
+}
